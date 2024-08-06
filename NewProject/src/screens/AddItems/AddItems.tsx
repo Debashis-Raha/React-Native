@@ -7,9 +7,12 @@ import {
   View,
   StyleSheet,
   Pressable,
+  Image,
+  ScrollView
 } from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import ImageCropPicker from 'react-native-image-crop-picker';
+
 
 const AddItems = () => {
   const {
@@ -42,7 +45,7 @@ const AddItems = () => {
   ];
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.title}>Add Food Items</Text>
       <Text style={styles.label}>Food Name</Text>
       <Controller
@@ -116,15 +119,19 @@ const AddItems = () => {
         <Text style={styles.error}>This is required.</Text>
       )}
       <View style={styles.subContainer}>
-        <Pressable style={styles.buttn} onPress={selectImage}>
+        <Pressable style={styles.buttn} onPress={selectImage}
+        >
           <Text style={styles.buttnStyle}>Upload Image</Text>
+          {watch('image') && (<Image source={{uri: watch('image')}} style={styles.image}/>)}
         </Pressable>
         <Text>Upload Food Image</Text>
       </View>
-      <Pressable style={styles.button} onPress={selectImage}>
+      <Pressable style={styles.button} onPress={selectImage} 
+     
+      >
         <Text style={styles.buttonStyle}>Submit</Text>
       </Pressable>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -140,7 +147,8 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: 'black',
     alignSelf: 'center',
-    marginVertical: 20,
+    marginTop:120,
+    marginBottom:50,
   },
   label: {
     marginVertical: 5,
@@ -185,14 +193,14 @@ const styles = StyleSheet.create({
   subContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 5,
+    marginTop: 15,
   },
   button: {
     backgroundColor: 'red',
     alignItems: 'center',
     marginHorizontal: 50,
     borderRadius: 20,
-    marginTop: 20,
+    marginTop: 50,
   },
   buttonStyle: {
     color: 'white',
