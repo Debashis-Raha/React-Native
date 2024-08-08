@@ -4,7 +4,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Home from "../HomePage/HomePage"; 
+import Home from "../HomePage/Home"; 
 import Profile from "../Profile/Profile"; 
 import Notification from "../Notification/Notification";
 import AddItems from "../AddItems/AddItems";
@@ -20,7 +20,7 @@ const TabNavigator = () => {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === "HomeTab") {
+          if (route.name === "Home") {
             iconName = focused ? "home" : "home-outline";
           } else if (route.name === "Profile") {
             iconName = focused ? "person" : "person-outline";
@@ -28,26 +28,28 @@ const TabNavigator = () => {
             iconName = focused ? "add-circle" : "add-circle-outline";
           }
           return <Ionicons name={iconName} size={size} color={color} />;
+        
         },
+        headerShown:false,
         tabBarActiveTintColor: "tomato",
         tabBarInactiveTintColor: "gray",
       })}
     >
-      <Tab.Screen name="HomeTab" component={Home} />
+      <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="AddItems" component={AddItems} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
 };
 
-const DrawerNavigator = () => {
-  return (
-    <Drawer.Navigator initialRouteName="Home">
-      <Drawer.Screen name="HomeDrawer" component={TabNavigator} />
-      <Drawer.Screen name="Notifications" component={Notification} />
-    </Drawer.Navigator>
-  );
-};
+// const DrawerNavigator = () => {
+//   return (
+//     <Drawer.Navigator initialRouteName="Home">
+//       <Drawer.Screen name="HomeDrawer" component={TabNavigator} />
+//       <Drawer.Screen name="Notifications" component={Notification} />
+//     </Drawer.Navigator>
+//   );
+// };
 
 const StackNavigator = () => {
   return (

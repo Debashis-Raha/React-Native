@@ -8,22 +8,38 @@ import {
   StyleSheet,
   Pressable,
   Image,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import ImageCropPicker from 'react-native-image-crop-picker';
-
+import {useDispatch} from 'react-redux';
+import { addFood } from '../Store/FoodSlice';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const AddItems = () => {
   const {
     control,
     handleSubmit,
     setValue,
+    reset,
     watch,
     formState: {errors},
   } = useForm();
-  const onSubmit = data => console.log(data);
 
+  const dispatch = useDispatch();
+  const onSubmit = data => {
+    console.log(data);
+
+    const payload = {
+      foodName: data.FoodName,
+      foodPrice: data.FoodPrice,
+      foodCategory: data.FoodCategory.value,
+      image: data.image,
+    };
+
+    dispatch(addFood(payload));
+    reset();
+  };
   const selectImage = async () => {
     try {
       const image = await ImageCropPicker.openPicker({
@@ -110,6 +126,7 @@ const AddItems = () => {
             onChange={onChange}
             onBlur={onBlur}
             style={styles.dropdown}
+          
           />
         )}
         name="FoodCategory"
@@ -119,16 +136,15 @@ const AddItems = () => {
         <Text style={styles.error}>This is required.</Text>
       )}
       <View style={styles.subContainer}>
-        <Pressable style={styles.buttn} onPress={selectImage}
-        >
+        <Pressable style={styles.buttn} onPress={selectImage}>
           <Text style={styles.buttnStyle}>Upload Image</Text>
-          {watch('image') && (<Image source={{uri: watch('image')}} style={styles.image}/>)}
+          {watch('image') && (
+            <Image source={{uri: watch('image')}} style={styles.image} />
+          )}
         </Pressable>
         <Text>Upload Food Image</Text>
       </View>
-      <Pressable style={styles.button} onPress={selectImage} 
-     
-      >
+      <Pressable style={styles.button} onPress={handleSubmit(onSubmit)}>
         <Text style={styles.buttonStyle}>Submit</Text>
       </Pressable>
     </ScrollView>
@@ -139,21 +155,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: '#EEEDEB',
+    backgroundColor: '#000000',
   },
 
   title: {
     fontSize: 30,
     fontWeight: '700',
-    color: 'black',
+    color: '#FF204E',
     alignSelf: 'center',
-    marginTop:120,
-    marginBottom:50,
+    marginTop: 120,
+    marginBottom: 50,
   },
   label: {
     marginVertical: 5,
     fontSize: 15,
-    color: 'black',
+    color: '#F57D1F',
     // paddingLeft:10,
   },
   input: {
@@ -163,6 +179,7 @@ const styles = StyleSheet.create({
     borderColor: 'blue',
     textAlign: 'left',
     borderRadius: 5,
+    color:'red',
   },
   dropdown: {
     marginVertical: 5,

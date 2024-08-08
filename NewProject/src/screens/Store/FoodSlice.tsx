@@ -1,14 +1,19 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { createSlice } from '@reduxjs/toolkit';
 
-const FoodSlice = () => {
-  return (
-    <View>
-      <Text>FoodSlice</Text>
-    </View>
-  )
-}
+const initialState = {
+  foodList: [],
+};
 
-export default FoodSlice
+const FoodSlice = createSlice({
+  name: 'food',
+  initialState,
+  reducers: {
+    addFood: (state, action) => {
+      state.foodList.push(action.payload);
+    },
+  },
+});
 
-const styles = StyleSheet.create({})
+export const { addFood } = FoodSlice.actions;
+
+export default FoodSlice.reducer;

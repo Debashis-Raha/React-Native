@@ -1,18 +1,16 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import TabNavigation from './src/screens/Navigation/Tabs';
-import Notification from './src/screens/Notification/Notification';
-import Home from './src/screens/HomePage/HomePage';
-import TabNavi from './src/screens/Navigation/TabNavi';
-import AddItems from './src/screens/AddItems/AddItems';
+import { Provider } from 'react-redux';
+import { store } from './src/screens/Store/Store';
 
 const App = () => {
   return (
+    <Provider store={store}>
     <View style={styles.mainContainer}>
-      {/* <TabNavigation/> */}
-
-      <AddItems />
+      <TabNavigation/>
     </View>
+    </Provider>
   );
 };
 
