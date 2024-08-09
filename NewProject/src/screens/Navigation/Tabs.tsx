@@ -8,6 +8,7 @@ import Home from "../HomePage/Home";
 import Profile from "../Profile/Profile"; 
 import Notification from "../Notification/Notification";
 import AddItems from "../AddItems/AddItems";
+import AddToCart from "../addToCart/addToCart";
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -27,17 +28,21 @@ const TabNavigator = () => {
           } else if (route.name === 'AddItems') {
             iconName = focused ? "add-circle" : "add-circle-outline";
           }
+         else if (route.name === 'addToCart') {
+          iconName = focused ? "cart" : "cart-outline";
+        }
           return <Ionicons name={iconName} size={size} color={color} />;
         
         },
         headerShown:false,
-        tabBarActiveTintColor: "tomato",
-        tabBarInactiveTintColor: "gray",
+        tabBarActiveTintColor: "#FF2E63",
+        tabBarInactiveTintColor: "#252A34",
       })}
     >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="AddItems" component={AddItems} />
       <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name='AddToCart' component={AddToCart}/>
     </Tab.Navigator>
   );
 };

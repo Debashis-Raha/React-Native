@@ -14,7 +14,7 @@ import {Dropdown} from 'react-native-element-dropdown';
 import ImageCropPicker from 'react-native-image-crop-picker';
 import {useDispatch} from 'react-redux';
 import { addFood } from '../Store/FoodSlice';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+
 
 const AddItems = () => {
   const {
@@ -122,6 +122,7 @@ const AddItems = () => {
             labelField={'label'}
             valueField={'value'}
             placeholder="Select a Category"
+          
             value={value}
             onChange={onChange}
             onBlur={onBlur}
@@ -135,15 +136,15 @@ const AddItems = () => {
       {errors.FoodCategory && (
         <Text style={styles.error}>This is required.</Text>
       )}
-      <View style={styles.subContainer}>
+      {/* <View style={styles.subContainer}> */}
         <Pressable style={styles.buttn} onPress={selectImage}>
           <Text style={styles.buttnStyle}>Upload Image</Text>
-          {watch('image') && (
+           </Pressable>
+        {watch('image') && (
             <Image source={{uri: watch('image')}} style={styles.image} />
           )}
-        </Pressable>
-        <Text>Upload Food Image</Text>
-      </View>
+        {/* <Text style={{color:'#252A34'}}>Upload Food Image</Text> */}
+      {/* </View> */}
       <Pressable style={styles.button} onPress={handleSubmit(onSubmit)}>
         <Text style={styles.buttonStyle}>Submit</Text>
       </Pressable>
@@ -155,13 +156,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: '#000000',
+    backgroundColor: '#EAEAEA',
   },
 
   title: {
     fontSize: 30,
     fontWeight: '700',
-    color: '#FF204E',
+    color: '#FF2E63',
     alignSelf: 'center',
     marginTop: 120,
     marginBottom: 50,
@@ -169,14 +170,14 @@ const styles = StyleSheet.create({
   label: {
     marginVertical: 5,
     fontSize: 15,
-    color: '#F57D1F',
+    color: '#252A34',
     // paddingLeft:10,
   },
   input: {
     fontSize: 15,
     paddingLeft: 10,
     borderWidth: 1,
-    borderColor: 'blue',
+    borderColor: '#FF2E63',
     textAlign: 'left',
     borderRadius: 5,
     color:'red',
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
   dropdown: {
     marginVertical: 5,
     borderWidth: 1,
-    borderColor: 'blue',
+    borderColor: '#FF2E63',
     height: 45,
     textAlign: 'left',
     borderRadius: 5,
@@ -195,10 +196,15 @@ const styles = StyleSheet.create({
     color: 'red',
   },
   buttn: {
-    backgroundColor: 'green',
+    backgroundColor: '#08D9D6',
     alignItems: 'center',
     borderRadius: 20,
-    width: 150,
+    width: 300,
+    height:35,
+    marginTop:20,
+    justifyContent:'center',
+    marginLeft:40,
+    
     // marginTop:30
   },
   buttnStyle: {
@@ -206,6 +212,7 @@ const styles = StyleSheet.create({
     padding: 2,
     color: 'white',
     fontWeight: 'bold',
+    alignSelf:'center,'
   },
   subContainer: {
     flexDirection: 'row',
@@ -213,18 +220,28 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   button: {
-    backgroundColor: 'red',
+    backgroundColor: '#FF2E63',
     alignItems: 'center',
     marginHorizontal: 50,
     borderRadius: 20,
-    marginTop: 50,
+    marginTop: 30,
   },
   buttonStyle: {
-    color: 'white',
+    color: '#EAEAEA',
     fontSize: 20,
     padding: 5,
     fontWeight: 'bold',
   },
+  image:{
+    resizeMode:'contain',
+    height:150,
+    width:250,
+    alignItems:'center',
+    marginTop:30,
+    // justifyContent:'center',
+    alignSelf:'center'
+  },
+
 });
 
 export default AddItems;

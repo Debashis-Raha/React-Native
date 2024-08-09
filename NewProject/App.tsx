@@ -1,15 +1,16 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import TabNavigation from './src/screens/Navigation/Tabs';
-import { Provider } from 'react-redux';
-import { store } from './src/screens/Store/Store';
+import {Provider} from 'react-redux';
+import {persistor, store} from './src/screens/Store/Store';
+import {PersistGate} from 'redux-persist/integration/react';
 
 const App = () => {
   return (
     <Provider store={store}>
-    <View style={styles.mainContainer}>
-      <TabNavigation/>
-    </View>
+      <PersistGate loading={null} persistor={persistor}>
+        <TabNavigation />
+      </PersistGate>
     </Provider>
   );
 };
