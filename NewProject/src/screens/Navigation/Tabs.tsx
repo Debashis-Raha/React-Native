@@ -1,48 +1,58 @@
-import * as React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Home from "../HomePage/Home"; 
-import Profile from "../Profile/Profile"; 
-import Notification from "../Notification/Notification";
-import AddItems from "../AddItems/AddItems";
-import AddToCart from "../addToCart/addToCart";
+import Home from '../HomePage/Home';
+import Profile from '../Profile/Profile';
+import Notification from '../Notification/Notification';
+import AddItems from '../AddItems/AddItems';
+import AddToCart from '../addToCart/addToCart';
+import {addToCart} from '../Store/CartSlice';
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
 const TabNavigator = () => {
+  const screenIcons = {
+    Home: 'home',
+    AddItems: 'add-circle',
+    Profile: 'person',
+    AddToCart: 'cart',
+  };
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
+      screenOptions={({route}) => ({
+        tabBarIcon: ({focused, color, size}) => {
+          const iconName = screenIcons[route.name];
 
-          if (route.name === "Home") {
-            iconName = focused ? "home" : "home-outline";
-          } else if (route.name === "Profile") {
-            iconName = focused ? "person" : "person-outline";
-          } else if (route.name === 'AddItems') {
-            iconName = focused ? "add-circle" : "add-circle-outline";
-          }
-         else if (route.name === 'addToCart') {
-          iconName = focused ? "cart" : "cart-outline";
-        }
-          return <Ionicons name={iconName} size={size} color={color} />;
-        
+          // if (route.name === 'Home') {
+          //   iconName = focused ? 'home' : 'home-outline';
+          // } else if (route.name === 'Profile') {
+          //   iconName = focused ? 'person' : 'person-outline';
+          // } else if (route.name === 'AddItems') {
+          //   iconName = focused ? 'add-circle' : 'add-circle-outline';
+          // } else if (route.name === 'addToCart') {
+          //   iconName = focused ? 'cart' : 'cart-outline';
+          // }
+          return (
+            <Ionicons
+              name={focused ? iconName : `${iconName}-outline`}
+              size={size}
+              color={color}
+            />
+          );
         },
-        headerShown:false,
-        tabBarActiveTintColor: "#FF2E63",
-        tabBarInactiveTintColor: "#252A34",
-      })}
-    >
+        headerShown: false,
+        tabBarActiveTintColor: '#FF2E63',
+        tabBarInactiveTintColor: '#252A34',
+      })}>
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="AddItems" component={AddItems} />
       <Tab.Screen name="Profile" component={Profile} />
-      <Tab.Screen name='AddToCart' component={AddToCart}/>
+      <Tab.Screen name="AddToCart" component={AddToCart} />
     </Tab.Navigator>
   );
 };
@@ -62,7 +72,7 @@ const StackNavigator = () => {
       <Stack.Screen
         name="Tab"
         component={TabNavigator}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
       <Stack.Screen name="AddItems" component={AddItems} />
     </Stack.Navigator>

@@ -1,9 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
-
+import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
   foodList: [],
-   cartList: [],
+  cartList: [],
+  nextID: 1,
+  cartID: 1,
 };
 
 const FoodSlice = createSlice({
@@ -11,28 +12,20 @@ const FoodSlice = createSlice({
   initialState,
   reducers: {
     addFood: (state, action) => {
-      state.foodList.push(action.payload);
+      const newFoodItem = {
+        id: state.nextID,
+        ...action.payload,
+      };
+      state.foodList.push(newFoodItem);
+      state.nextID++;
     },
     submitCartId: (state, action) => {
-      console.log("cartList====767576576>", action.payload)
-             state.cartList.push(action.payload);
-         },
-    
+      console.log('cartList====767576576>', action.payload);
+      state.cartList.push(action.payload);
+    },
   },
 });
-// const cartSlice = createSlice({
-//   name: 'cart',
-//   initialState,
-//   reducers: {
-//     addToCart: (state, action) => {
-//       state.cartList.push(action.payload);
-//     },
-    
-//   },
-// });
 
-
-export const { addFood, submitCartId } = FoodSlice.actions;
-// export const { addToCart } = cartSlice.actions;
+export const {addFood, submitCartId} = FoodSlice.actions;
 
 export default FoodSlice.reducer;
