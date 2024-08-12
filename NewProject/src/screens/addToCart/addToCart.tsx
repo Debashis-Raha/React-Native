@@ -6,7 +6,7 @@ import {FlatList} from 'react-native-gesture-handler';
 const AddToCart = () => {
   const {cartList} = useSelector(state => state.food);
 
-  console.log('cartscreen====>', cartList)
+  console.log('cartscreen====>', cartList);
 
   const render_Item = item => (
     <View style={styles.RenderView}>
@@ -29,21 +29,22 @@ const AddToCart = () => {
 export default AddToCart;
 
 const styles = StyleSheet.create({
-  RenderView:{
-    flex:1,
-    width:400,
-    borderWidth:2,
-    borderColor:'red',
-    justifyContent:'center',
-    alignSelf:'center',
-    marginTop:10,
-    marginHorizontal:10,
-    padding:10,
-    borderRadius:10,
+  RenderView: {
+    flex: 1,
+    width: 400,
+    borderWidth: 2,
+    borderColor: 'red',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    marginTop: 10,
+    marginHorizontal: 10,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: '#EAEAEA',
   },
-  RenderText:{
-justifyContent:'center',
-fontSize:20,
-fontWeight:'300'
+  RenderText: {
+    justifyContent: 'center',
+    fontSize: 20,
+    fontWeight: '300',
   },
 });

@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop:5,
     borderRadius: 5,
+    backgroundColor:'#EAEAEA'
   },
   subCard: {
     marginLeft: 1,

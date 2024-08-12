@@ -62,7 +62,7 @@ const AddItems = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>Add Food Items</Text>
+      {/* <Text style={styles.title}>Add Food Items</Text> */}
       <Text style={styles.label}>Food Name</Text>
       <Controller
         control={control}
@@ -157,6 +157,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     backgroundColor: '#EAEAEA',
+    marginTop:'',
   },
 
   title: {

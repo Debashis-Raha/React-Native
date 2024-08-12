@@ -20,8 +20,12 @@ const FoodSlice = createSlice({
       state.nextID++;
     },
     submitCartId: (state, action) => {
-      console.log('cartList====767576576>', action.payload);
-      state.cartList.push(action.payload);
+    const newCart ={
+      id: state.cartID,
+      ...action.payload,
+    };
+    state.cartList.push(newCart);
+    state.cartID++;
     },
   },
 });

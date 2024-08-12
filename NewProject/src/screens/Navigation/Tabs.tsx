@@ -45,14 +45,32 @@ const TabNavigator = () => {
             />
           );
         },
-        headerShown: false,
+        // headerShown: false,
         tabBarActiveTintColor: '#FF2E63',
         tabBarInactiveTintColor: '#252A34',
+        headerStyle:{backgroundColor:'#FF2E63'},
+        headerTitleStyle:{
+          fontSize: 30,
+          fontWeight: '500',
+         
+        },
+        headerTintColor:'#EAEAEA',
+        headerTitleAlign:'center'
       })}>
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="AddItems" component={AddItems} />
-      <Tab.Screen name="Profile" component={Profile} />
-      <Tab.Screen name="AddToCart" component={AddToCart} />
+      <Tab.Screen name="Home" component={Home} options={
+        {
+          title:'Food Home'
+        }
+      } />
+      <Tab.Screen name="AddItems" component={AddItems} options={{
+        title:'Add Item'
+      }}/>
+      <Tab.Screen name="Profile" component={Profile} options={{
+        title:'Profile'
+      }}/>
+      <Tab.Screen name="AddToCart" component={AddToCart} options={{
+        title:'Cart'
+      }} />
     </Tab.Navigator>
   );
 };
