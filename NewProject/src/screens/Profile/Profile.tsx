@@ -73,7 +73,7 @@ const Profile = () => {
         defaultValue=''
       />
       {errors.address && (<Text>Address is required</Text>)}
-      <Text>Mobile Number</Text>
+      <Text>Mobile</Text>
       {/*   */}
     </ScrollView>
   );
