@@ -12,7 +12,6 @@ import AddToCart from '../addToCart/addToCart';
 import {addToCart} from '../Store/CartSlice';
 
 const Tab = createBottomTabNavigator();
-const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
 const TabNavigator = () => {
@@ -27,16 +26,6 @@ const TabNavigator = () => {
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
           const iconName = screenIcons[route.name];
-
-          // if (route.name === 'Home') {
-          //   iconName = focused ? 'home' : 'home-outline';
-          // } else if (route.name === 'Profile') {
-          //   iconName = focused ? 'person' : 'person-outline';
-          // } else if (route.name === 'AddItems') {
-          //   iconName = focused ? 'add-circle' : 'add-circle-outline';
-          // } else if (route.name === 'addToCart') {
-          //   iconName = focused ? 'cart' : 'cart-outline';
-          // }
           return (
             <Ionicons
               name={focused ? iconName : `${iconName}-outline`}
@@ -48,28 +37,20 @@ const TabNavigator = () => {
         // headerShown: false,
         tabBarActiveTintColor: '#FF2E63',
         tabBarInactiveTintColor: '#252A34',
-        headerStyle:{backgroundColor:'#FF2E63'},
-        headerTitleStyle:{
-          fontSize: 30,
-          fontWeight: '500',
-         
-        },
-        headerTintColor:'#EAEAEA',
-        headerTitleAlign:'center'
       })}>
       <Tab.Screen name="Home" component={Home} options={
         {
-          title:'Food Home'
+          headerShown:false
         }
       } />
       <Tab.Screen name="AddItems" component={AddItems} options={{
-        title:'Add Item'
+     headerShown:false
       }}/>
       <Tab.Screen name="Profile" component={Profile} options={{
-        title:'Profile'
+          headerShown:false
       }}/>
       <Tab.Screen name="AddToCart" component={AddToCart} options={{
-        title:'Cart'
+        headerShown:false
       }} />
     </Tab.Navigator>
   );
@@ -92,7 +73,7 @@ const StackNavigator = () => {
         component={TabNavigator}
         options={{headerShown: false}}
       />
-      <Stack.Screen name="AddItems" component={AddItems} />
+      <Stack.Screen name="Cart" component={addToCart} />
     </Stack.Navigator>
   );
 };

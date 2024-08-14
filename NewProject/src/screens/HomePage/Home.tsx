@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {FlatList} from 'react-native-gesture-handler';
 import { submitCartId } from '../Store/FoodSlice';
 
+import Header from '../../components/atom/Header';
 
 const Home = () => {
   const {foodList} = useSelector(state => state.food);
@@ -29,7 +30,7 @@ const Home = () => {
   const _renderItem = item => {
     return (
       <View style={styles.card}>
-        
+       
         <Image source={{uri: item.item.image}} style={styles.image} />
         <View style={styles.subCard}>
           <Text style={styles.Txt}>Food Name: {item.item.foodName} </Text>
@@ -52,6 +53,7 @@ const Home = () => {
  
   return (
     <View style={styles.flatStyle}>
+       <Header title='Home'isBackOption={true}/>
       <FlatList
         data={foodList}
         renderItem={_renderItem}
