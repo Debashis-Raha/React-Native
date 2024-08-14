@@ -14,14 +14,14 @@ const Home = () => {
  
 
 
- const AddtoCart=(item)=>{
- console.log('cartItem=====>', item)
+ const AddtoCart=(id)=>{
+ console.log('cartItem=====>', id)
  const payload = {
-  foodName: item.item.foodName,
-  foodPrice: item.item.foodPrice,
+// item.item.id,
+  // foodPrice: item.item.foodPrice,
 };
- dispatch(submitCartId(payload));
- console.log("payload=======>", payload)
+ dispatch(submitCartId(id));
+//  console.log("payload=======>", payload)
 };
 
 
@@ -39,7 +39,7 @@ const Home = () => {
           </Text>
           <Text style={styles.Txt}>Food Price: ${item.item.foodPrice} </Text>
           <View style={styles.subView}>
-          <TouchableOpacity onPress={() => AddtoCart(item)} style={styles.AddCartButton}>
+          <TouchableOpacity onPress={() => AddtoCart(item.item.id)} style={styles.AddCartButton}>
             <Text style={styles.AddCartText}>Add to Cart</Text>
           </TouchableOpacity>
           </View>
