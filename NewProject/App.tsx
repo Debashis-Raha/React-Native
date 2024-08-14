@@ -2,6 +2,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import TabNavigation from './src/screens/Navigation/Tabs';
 import {Provider} from 'react-redux';
+import 'react-native-gesture-handler';
 import {persistor, store} from './src/screens/Store/Store';
 import {PersistGate} from 'redux-persist/integration/react';
 
