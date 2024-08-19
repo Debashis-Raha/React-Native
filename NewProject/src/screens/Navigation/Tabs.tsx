@@ -9,7 +9,9 @@ import Profile from '../Profile/Profile';
 import Notification from '../Notification/Notification';
 import AddItems from '../AddItems/AddItems';
 import AddToCart from '../addToCart/addToCart';
-import {addToCart} from '../Store/CartSlice';
+import LoginRoutes from './Login-routes';
+
+import HomeRoutes from './Home-routes';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -38,20 +40,34 @@ const TabNavigator = () => {
         tabBarActiveTintColor: '#FF2E63',
         tabBarInactiveTintColor: '#252A34',
       })}>
-      <Tab.Screen name="Home" component={Home} options={
-        {
-          headerShown:false
-        }
-      } />
-      <Tab.Screen name="AddItems" component={AddItems} options={{
-     headerShown:false
-      }}/>
-      <Tab.Screen name="Profile" component={Profile} options={{
-          headerShown:false
-      }}/>
-      <Tab.Screen name="AddToCart" component={AddToCart} options={{
-        headerShown:false
-      }} />
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="AddItems"
+        component={AddItems}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="AddToCart"
+        component={AddToCart}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Tab.Navigator>
   );
 };
@@ -67,13 +83,18 @@ const TabNavigator = () => {
 
 const StackNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="Tab">
+    <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
-        name="Tab"
-        component={TabNavigator}
+        name="Login"
+        component={LoginRoutes}
         options={{headerShown: false}}
       />
-      <Stack.Screen name="Cart" component={addToCart} />
+      <Stack.Screen
+        name="Home"
+        component={HomeRoutes}
+        options={{headerShown: false}}
+      />
+      {/* <Stack.Screen name="Cart" component={AddToCart} /> */}
     </Stack.Navigator>
   );
 };
@@ -87,3 +108,5 @@ const TabNavigation = () => {
 };
 
 export default TabNavigation;
+export {TabNavigator};
+

@@ -105,6 +105,7 @@ const AddItems = () => {
         render={({field: {onChange, onBlur, value}}) => (
           <TextInput
             onBlur={onBlur}
+            // onChange={(event) => field.onChange(parseInt(event.target.value))}
             onChangeText={onChange}
             value={value}
             placeholder="Enter Food Price"

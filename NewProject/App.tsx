@@ -2,12 +2,15 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import TabNavigation from './src/screens/Navigation/Tabs';
 import {Provider} from 'react-redux';
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import 'react-native-gesture-handler';
 import {persistor, store} from './src/screens/Store/Store';
 import {PersistGate} from 'redux-persist/integration/react';
 
+
 const App = () => {
   return (
+ 
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <TabNavigation />
