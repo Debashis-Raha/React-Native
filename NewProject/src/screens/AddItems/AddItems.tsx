@@ -14,6 +14,7 @@ import {Dropdown} from 'react-native-element-dropdown';
 import ImageCropPicker from 'react-native-image-crop-picker';
 import {useDispatch} from 'react-redux';
 import { addFood } from '../Store/FoodSlice';
+import  Header from '../../components/atom/Header'
 
 
 const AddItems = () => {
@@ -61,7 +62,10 @@ const AddItems = () => {
   ];
 
   return (
-    <ScrollView style={styles.container}>
+    <>
+     <Header title='Add Food Item'/>
+     <ScrollView contentContainerStyle={styles.container}>
+     
       {/* <Text style={styles.title}>Add Food Items</Text> */}
       <Text style={styles.label}>Food Name</Text>
       <Controller
@@ -101,6 +105,7 @@ const AddItems = () => {
         render={({field: {onChange, onBlur, value}}) => (
           <TextInput
             onBlur={onBlur}
+            // onChange={(event) => field.onChange(parseInt(event.target.value))}
             onChangeText={onChange}
             value={value}
             placeholder="Enter Food Price"
@@ -149,15 +154,19 @@ const AddItems = () => {
         <Text style={styles.buttonStyle}>Submit</Text>
       </Pressable>
     </ScrollView>
+    </>
+   
+    
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    // padding:10,
     backgroundColor: '#EAEAEA',
-    marginTop:'',
+    marginTop:15,
+    marginHorizontal : 10
   },
 
   title: {
@@ -167,6 +176,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 120,
     marginBottom: 50,
+    padding:10,
   },
   label: {
     marginVertical: 5,

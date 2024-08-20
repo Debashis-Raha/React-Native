@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {FlatList} from 'react-native-gesture-handler';
 import { submitCartId } from '../Store/FoodSlice';
 
+import Header from '../../components/atom/Header';
 
 const Home = () => {
   const {foodList} = useSelector(state => state.food);
@@ -14,14 +15,14 @@ const Home = () => {
  
 
 
- const AddtoCart=(item)=>{
- console.log('cartItem=====>', item)
+ const AddtoCart=(id)=>{
+ console.log('cartItem=====>', id)
  const payload = {
-  foodName: item.item.foodName,
-  foodPrice: item.item.foodPrice,
+// item.item.id,
+  // foodPrice: item.item.foodPrice,
 };
- dispatch(submitCartId(payload));
- console.log("payload=======>", payload)
+ dispatch(submitCartId(id));
+//  console.log("payload=======>", payload)
 };
 
 
@@ -29,7 +30,7 @@ const Home = () => {
   const _renderItem = item => {
     return (
       <View style={styles.card}>
-        
+       
         <Image source={{uri: item.item.image}} style={styles.image} />
         <View style={styles.subCard}>
           <Text style={styles.Txt}>Food Name: {item.item.foodName} </Text>
@@ -39,7 +40,7 @@ const Home = () => {
           </Text>
           <Text style={styles.Txt}>Food Price: ${item.item.foodPrice} </Text>
           <View style={styles.subView}>
-          <TouchableOpacity onPress={() => AddtoCart(item)} style={styles.AddCartButton}>
+          <TouchableOpacity onPress={() => AddtoCart(item.item.id)} style={styles.AddCartButton}>
             <Text style={styles.AddCartText}>Add to Cart</Text>
           </TouchableOpacity>
           </View>
@@ -52,6 +53,7 @@ const Home = () => {
  
   return (
     <View style={styles.flatStyle}>
+       <Header title='Home'isBackOption={true}/>
       <FlatList
         data={foodList}
         renderItem={_renderItem}

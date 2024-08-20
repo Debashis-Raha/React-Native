@@ -9,10 +9,11 @@ import Profile from '../Profile/Profile';
 import Notification from '../Notification/Notification';
 import AddItems from '../AddItems/AddItems';
 import AddToCart from '../addToCart/addToCart';
-import {addToCart} from '../Store/CartSlice';
+import LoginRoutes from './Login-routes';
+
+import HomeRoutes from './Home-routes';
 
 const Tab = createBottomTabNavigator();
-const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
 const TabNavigator = () => {
@@ -27,16 +28,6 @@ const TabNavigator = () => {
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
           const iconName = screenIcons[route.name];
-
-          // if (route.name === 'Home') {
-          //   iconName = focused ? 'home' : 'home-outline';
-          // } else if (route.name === 'Profile') {
-          //   iconName = focused ? 'person' : 'person-outline';
-          // } else if (route.name === 'AddItems') {
-          //   iconName = focused ? 'add-circle' : 'add-circle-outline';
-          // } else if (route.name === 'addToCart') {
-          //   iconName = focused ? 'cart' : 'cart-outline';
-          // }
           return (
             <Ionicons
               name={focused ? iconName : `${iconName}-outline`}
@@ -48,29 +39,35 @@ const TabNavigator = () => {
         // headerShown: false,
         tabBarActiveTintColor: '#FF2E63',
         tabBarInactiveTintColor: '#252A34',
-        headerStyle:{backgroundColor:'#FF2E63'},
-        headerTitleStyle:{
-          fontSize: 30,
-          fontWeight: '500',
-         
-        },
-        headerTintColor:'#EAEAEA',
-        headerTitleAlign:'center'
       })}>
-      <Tab.Screen name="Home" component={Home} options={
-        {
-          title:'Food Home'
-        }
-      } />
-      <Tab.Screen name="AddItems" component={AddItems} options={{
-        title:'Add Item'
-      }}/>
-      <Tab.Screen name="Profile" component={Profile} options={{
-        title:'Profile'
-      }}/>
-      <Tab.Screen name="AddToCart" component={AddToCart} options={{
-        title:'Cart'
-      }} />
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="AddItems"
+        component={AddItems}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="AddToCart"
+        component={AddToCart}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Tab.Navigator>
   );
 };
@@ -86,13 +83,18 @@ const TabNavigator = () => {
 
 const StackNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="Tab">
+    <Stack.Navigator initialRouteName="Login">
       <Stack.Screen
-        name="Tab"
-        component={TabNavigator}
+        name="Login"
+        component={LoginRoutes}
         options={{headerShown: false}}
       />
-      <Stack.Screen name="AddItems" component={AddItems} />
+      <Stack.Screen
+        name="Home"
+        component={HomeRoutes}
+        options={{headerShown: false}}
+      />
+      {/* <Stack.Screen name="Cart" component={AddToCart} /> */}
     </Stack.Navigator>
   );
 };
@@ -106,3 +108,5 @@ const TabNavigation = () => {
 };
 
 export default TabNavigation;
+export {TabNavigator};
+
