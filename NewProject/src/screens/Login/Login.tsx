@@ -65,18 +65,18 @@ const _Login = () => {
   console.log('userListLog========>', userList);
 
   const onSubmit = data => {
-    // console.log('login=========>', data);
-    // const doesUserExist = userList.find(
-    //   item => item.email === data.email && item.password === data.password,
-    // );
-    // console.log("doesExist=======>", doesUserExist);
-    // if (doesUserExist) {
-    //   navigation.navigate('Home');
-    // } else {
-    //   Alert.alert('Error','Invalid Credentials. Please try again');
-    //   reset();
-    // }
-    navigation.navigate('Home');
+    console.log('login=========>', data);
+    const doesUserExist = userList.find(
+      item => item.payload.email === data.email && item.payload.password === data.password,
+    );
+    console.log("doesExist=======>", doesUserExist);
+    if (doesUserExist) {
+      navigation.navigate('Home');
+    } else {
+      Alert.alert('Error','Invalid Credentials. Please try again');
+      reset();
+    }
+    // navigation.navigate('Home');
 
   // dispatch(addUser(payload));
   };
