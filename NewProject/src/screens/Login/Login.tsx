@@ -11,10 +11,13 @@ import {Alert} from 'react-native';
 import {Controller, useForm} from 'react-hook-form';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
-import {addUser} from '../Store/UserSlice';
-import {createSelector} from 'reselect';
-import {useNavigation} from '@react-navigation/native';
+import {
+  isLogginFail,
+  isLogginStarted,
+  isLogginSuccess,
+} from '../Store/UserSlice';
 
+import {useNavigation} from '@react-navigation/native';
 
 const _Login = () => {
   const {
@@ -23,18 +26,6 @@ const _Login = () => {
     reset,
     formState: {errors},
   } = useForm();
-
-//   const selectUserList = state => state.userList;
-
-
-// const doesUserExistSelector = createSelector(
-//   [selectUserList],
-//   userList => data =>
-//     userList.some(
-//       item => item.email === data.email && item.password === data.password,
-//     ),
-// );
-
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -46,39 +37,26 @@ const _Login = () => {
 
   const dispatch = useDispatch();
 
-  // const selectUserList = state => state.user.userList;
-
-  // const onSubmit = data => {
-  //   // const doesUserExist = useSelector(doesUserExistSelector);
-  //   // console.log('userExist==========>', doesUserExist);
-  //   console.log("DATA=========>",data);
-  
-  // dispatch(addLogin(data));
-  // console.log("onSubPayload===========>",data);
-
-  // };
-  
-  // Usage:
-  
-
   const {userList} = useSelector(state => state.user);
   console.log('userListLog========>', userList);
 
   const onSubmit = data => {
     console.log('login=========>', data);
+    dispatch(isLogginStarted());
     const doesUserExist = userList.find(
-      item => item.payload.email === data.email && item.payload.password === data.password,
+      item =>
+        item.payload.email === data.email &&
+        item.payload.password === data.password,
     );
-    console.log("doesExist=======>", doesUserExist);
+    console.log('doesExist=======>', doesUserExist);
     if (doesUserExist) {
-      navigation.navigate('Home');
+      // navigation.navigate('Home');
+      dispatch(isLogginSuccess());
     } else {
-      Alert.alert('Error','Invalid Credentials. Please try again');
+      Alert.alert('Error', 'Invalid Credentials. Please try again');
+      dispatch(isLogginFail());
       reset();
     }
-    // navigation.navigate('Home');
-
-  // dispatch(addUser(payload));
   };
 
   return (
