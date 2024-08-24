@@ -12,9 +12,12 @@ import AddToCart from '../addToCart/addToCart';
 import LoginRoutes from './Login-routes';
 
 import HomeRoutes from './Home-routes';
+import {useSelector} from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+
+
 
 const TabNavigator = () => {
   const screenIcons = {
@@ -82,24 +85,28 @@ const TabNavigator = () => {
 // };
 
 const StackNavigator = () => {
+  const {isAuthenticated} = useSelector(state => state.user);
   return (
-    <Stack.Navigator initialRouteName="Login">
-      <Stack.Screen
-        name="Login"
-        component={LoginRoutes}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="Home"
-        component={HomeRoutes}
-        options={{headerShown: false}}
-      />
-      {/* <Stack.Screen name="Cart" component={AddToCart} /> */}
+    <Stack.Navigator>
+      {!isAuthenticated ? (
+        <Stack.Screen
+          name="Login"
+          component={LoginRoutes}
+          options={{headerShown: false}}
+        />
+      ) : (
+        <Stack.Screen
+          name="Home"
+          component={HomeRoutes}
+          options={{headerShown: false}}
+        />
+      )}
     </Stack.Navigator>
   );
 };
 
 const TabNavigation = () => {
+
   return (
     <NavigationContainer>
       <StackNavigator />
@@ -109,4 +116,3 @@ const TabNavigation = () => {
 
 export default TabNavigation;
 export {TabNavigator};
-

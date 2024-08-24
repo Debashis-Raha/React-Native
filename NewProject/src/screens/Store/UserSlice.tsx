@@ -3,39 +3,59 @@ import {createSlice} from '@reduxjs/toolkit'
 
 const initialState ={
     userList:[],
-    loginList:[]
-    ,
+    userId:1,
+    isAuthenticated: false,
 };
 
-// const selectUserList = state => state.userList;
-
-// const doesUserExistSelector = createSelector(
-//   [selectUserList],
-//   userList => data =>
-//     userList.some(
-//       item => item.email === data.email && item.password === data.password,
-//     ),
-// );
 
 const userSlice = createSlice({
     name:'user',
     initialState,
     reducers:{
         addUser:(state,action)=>{
-            state.userList.push(action);
             console.log("newUser========>", action);
+
+            if(!Array.isArray(state.userList))
+            {
+                state.userList = [];
+            }
+            
+            const newUSer = {
+                id:state.userId,
+                ...action.payload,
+            };
+
+            console.log("newUSER========>", newUSer);
+            state.userList.push(newUSer);
+            state.userId += 1;
         },
-        // addLogin:(state,action)=>{
-        //     state.loginList.push(action);
-        //     console.log("newUser2========>", action);
-        // },
+
+        isLogginStarted: state => {
+            state.isAuthenticated =false;
+        },
+        isLogginSuccess: state => {
+            state.isAuthenticated =true;
+        },
+        isLogginFail: state => {
+            state.isAuthenticated =false;
+        },
+        logOut: state => {
+            state.isAuthenticated =false;
+        },
+
+
       
     },
 });
 
 
 
-export const {addUser} = userSlice.actions;
+export const {addUser,
+    isLogginFail,
+    isLogginStarted,
+    isLogginSuccess,
+    logOut,
+} = userSlice.actions;
 
 // export {doesUserExistSelector};
 
