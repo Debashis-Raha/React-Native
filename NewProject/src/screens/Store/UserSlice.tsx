@@ -5,6 +5,7 @@ const initialState ={
     userList:[],
     userId:1,
     isAuthenticated: false,
+    doesUserExist: {}
 };
 
 
@@ -13,7 +14,7 @@ const userSlice = createSlice({
     initialState,
     reducers:{
         addUser:(state,action)=>{
-            console.log("newUser========>", action);
+           
 
             if(!Array.isArray(state.userList))
             {
@@ -33,8 +34,9 @@ const userSlice = createSlice({
         isLogginStarted: state => {
             state.isAuthenticated =false;
         },
-        isLogginSuccess: state => {
+        isLogginSuccess: (state, {payload}) => {
             state.isAuthenticated =true;
+            state.doesUserExist = payload;
         },
         isLogginFail: state => {
             state.isAuthenticated =false;
