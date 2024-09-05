@@ -38,20 +38,18 @@ const _Login = () => {
   const dispatch = useDispatch();
 
   const {userList} = useSelector(state => state.user);
-  console.log('userListLog========>', userList);
+  //console.log('userListLog========>', userList);
 
   const onSubmit = data => {
     console.log('login=========>', data);
     dispatch(isLogginStarted());
     const doesUserExist = userList.find(
-      item =>
-        item.payload.email === data.email &&
-        item.payload.password === data.password,
+      item => item.email === data.email && item.password === data.password,
     );
     console.log('doesExist=======>', doesUserExist);
     if (doesUserExist) {
       // navigation.navigate('Home');
-      dispatch(isLogginSuccess());
+      dispatch(isLogginSuccess(doesUserExist));
     } else {
       Alert.alert('Error', 'Invalid Credentials. Please try again');
       dispatch(isLogginFail());

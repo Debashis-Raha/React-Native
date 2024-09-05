@@ -3,6 +3,8 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import {FlatList, ScrollView} from 'react-native-gesture-handler';
 import Header from '../../components/atom/Header';
+import {useNavigation} from '@react-navigation/native';
+import Address from '../CheckOut/Address';
 
 const AddToCart = () => {
   const {cartList} = useSelector(state => state.food);
@@ -11,11 +13,11 @@ const AddToCart = () => {
   console.log('foodList2====>', foodList);
 
   const totalPrice = foodList.reduce(
-    (total, element) => total + element.number * element.priceNumber,
-    0
+    (total, element) => Number(total) + Number(element.foodPrice),
+    0,
   );
 
-  // const priceNumber = parseInt(foodPrice);
+  const navigation = useNavigation();
 
   const matchedItems = cartList
     .map(id => foodList.find(item => item.id === id))
@@ -25,41 +27,44 @@ const AddToCart = () => {
   // .map(idObj => foodList.find(item => item.id === idObj.Index))
   // .filter(item => item !== undefined);
 
-
   console.log('matchedList======>', matchedItems);
 
   const render_Item = item => (
     <View>
-    <View style={styles.RenderView}>
-      <Text style={styles.RenderText}>Food Name: {item.item.foodName}</Text>
-      <Text style={styles.RenderText}>Food Price: ${item.item.foodPrice}</Text>
-    </View>
+      <View style={styles.RenderView}>
+        <Text style={styles.RenderText}>Food Name: {item.item.foodName}</Text>
+        <Text style={styles.RenderText}>
+          Food Price: ${item.item.foodPrice}
+        </Text>
+      </View>
     </View>
   );
 
-  const footer =()=> {
-return(
-<View style={styles.footContainer}>
-  <Text style={styles.footText}>This is footer</Text>
-</View>
-)
-  }
+  const footer = () => {
+    return (
+      <View style={styles.footContainer}>
+        <Text style={styles.footText}>This is footer</Text>
+      </View>
+    );
+  };
 
   return (
-    <ScrollView contentContainerStyle={{flex:1}}>
-       <Header title='Cart'isBackOption={false}/>
+    <ScrollView contentContainerStyle={{flex: 1}}>
+      <Header title="Cart" isBackOption={false} />
       <FlatList
         data={matchedItems}
         renderItem={render_Item}
         keyExtractor={item => item.foodName}
-        ListFooterComponent={footer}
+        // ListFooterComponent={footer}
       />
       <View>
-        <Text>Total Price: ${totalPrice.toFixed(2)}</Text>
-        <TouchableOpacity style={styles.payButton}>
-          <Text style={styles.payText}>
-            CheckOut
-          </Text>
+        <Text style={styles.totalText}>
+          Total Price: ${totalPrice.toFixed(2)}
+        </Text>
+        <TouchableOpacity
+          style={styles.payButton}
+          onPress={() => navigation.navigate('Address')}>
+          <Text style={styles.payText}>CheckOut</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -86,9 +91,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     fontSize: 20,
     fontWeight: '300',
+    color: '#252A34',
   },
-  footContainer:{
-    position: "relative",
+  footContainer: {
+    position: 'relative',
     bottom: 0,
     left: 0,
     right: 0,
@@ -96,25 +102,28 @@ const styles = StyleSheet.create({
     // backgroundColor: 'black', // Customize as needed
     justifyContent: 'center',
     alignItems: 'center',
-
   },
-  footText:{},
-  payButton:{
-    backgroundColor:'#08D9D6',
-    borderRadius:20,
-    height:50,
-    width:250,
-    justifyContent:'center',
-    alignItems:'center',
-    marginHorizontal:80,
-    marginBottom:10,
-
+  footText: {},
+  payButton: {
+    backgroundColor: '#08D9D6',
+    borderRadius: 20,
+    height: 50,
+    width: 250,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 80,
+    marginBottom: 10,
   },
-  payText:{
-    fontSize:20,
-    color:'#EAEAEA',
-    padding:5,
-    fontWeight:'500',
-
+  payText: {
+    fontSize: 20,
+    color: '#EAEAEA',
+    padding: 5,
+    fontWeight: '500',
+  },
+  totalText: {
+    fontSize: 20,
+    alignSelf: 'center',
+    color: '#252A34',
+    marginBottom: 20,
   },
 });
