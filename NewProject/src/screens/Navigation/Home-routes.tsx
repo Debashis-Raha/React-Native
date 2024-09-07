@@ -6,6 +6,7 @@ import AddToCart from '../addToCart/addToCart';
 import CartRoutes from './Cart-routes';
 import Address from '../CheckOut/Address';
 import AddConfirm from '../CheckOut/AddConfirm';
+import Payment from '../CheckOut/Payment';
 
 const HomeRoutes = () => {
     const Stack = createStackNavigator();
@@ -15,6 +16,7 @@ const HomeRoutes = () => {
     <Stack.Screen name='cart' component={AddToCart} options={{headerShown:false}}/>
     <Stack.Screen name="Address" component={Address} options={{headerShown:false}} />
     <Stack.Screen name="AddressConfirm" component={AddConfirm} options={{headerShown:false}}/>
+    <Stack.Screen name="payment" component={Payment} options={{headerShown:false}}/>
 
    </Stack.Navigator>
   )

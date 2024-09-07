@@ -71,6 +71,10 @@ const SignUp = () => {
           control={control}
           rules={{
             required: true,
+            pattern: {
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+              message: 'Invalid email address',
+            },
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
@@ -94,8 +98,8 @@ const SignUp = () => {
           rules={{
             required: true,
             pattern: {
-              value: /^[0-9]*$/, // Regex to allow only numeric
-              message: 'Only letters are allowed',
+              value: /^[0-9]{10}$/,
+              message: 'Phone number must be 10 digits',
             },
           }}
           render={({field: {onChange, onBlur, value}}) => (

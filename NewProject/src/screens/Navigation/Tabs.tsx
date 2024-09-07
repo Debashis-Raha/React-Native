@@ -87,7 +87,7 @@ const TabNavigator = () => {
 const StackNavigator = () => {
   const {isAuthenticated} = useSelector(state => state.user);
   return (
-    <Stack.Navigator>
+    <Stack.Navigator >
       {!isAuthenticated ? (
         <Stack.Screen
           name="Login"
@@ -99,6 +99,7 @@ const StackNavigator = () => {
           name="Home"
           component={HomeRoutes}
           options={{headerShown: false}}
+          
         />
       )}
     </Stack.Navigator>
