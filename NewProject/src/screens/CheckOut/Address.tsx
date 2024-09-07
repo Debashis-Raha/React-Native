@@ -10,6 +10,7 @@ import React, {useState} from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import {useNavigation} from '@react-navigation/native';
 import Loader from '../../components/atom/Loader';
+import Header from '../../components/atom/Header';
 
 const Address = () => {
   const {
@@ -30,13 +31,18 @@ const Address = () => {
   };
 
   return (
+    <View>
+      < Header title='Address'/>
     <ScrollView contentContainerStyle={styles.container}>
+      
       <Text style={styles.label}>House Number:</Text>
       <Controller
         control={control}
         name="houseNum"
         defaultValue=""
-        rules={{required: true}}
+        rules={{required: true,
+          pattern: /^[0-9]+$/,
+        }}
         render={({field: {onChange, onBlur, value}}) => (
           <TextInput
             style={styles.input}
@@ -158,6 +164,8 @@ const Address = () => {
             onBlur={onBlur}
             value={value}
             placeholder="Enter your PIN"
+            keyboardType='numeric'
+            maxLength={6}
           />
         )}
       />
@@ -175,6 +183,7 @@ const Address = () => {
         )}
       </View>
     </ScrollView>
+    </View>
   );
 };
 
@@ -182,18 +191,22 @@ export default Address;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    padding: 10,
   },
   label: {
-    fontSize: 16,
+    fontSize: 18,
+    fontWeight: '400',
+    color: '#252A34',
     marginBottom: 5,
   },
   input: {
-    height: 40,
-    borderColor: 'gray',
+    fontSize: 15,
+    paddingLeft: 10,
     borderWidth: 1,
-    marginBottom: 10,
-    paddingHorizontal: 10,
+    borderColor: '#FF2E63',
+    textAlign: 'left',
+    borderRadius: 5,
+    color:'#FF2E63',
   },
   error: {
     color: 'red',
@@ -204,12 +217,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    backgroundColor: 'blue',
-    padding: 10,
-    borderRadius: 5,
+    backgroundColor: '#08D9D6',
+    borderRadius: 20,
+    height: 50,
+    width: 250,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 80,
+    marginBottom: 10,
   },
   buttonText: {
-    color: 'white',
-    fontSize: 16,
+     color: '#EAEAEA',
+      fontSize: 20,
+      padding: 5,
+      fontWeight: 'bold'
   },
 });

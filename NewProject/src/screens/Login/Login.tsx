@@ -27,7 +27,7 @@ const _Login = () => {
     formState: {errors},
   } = useForm();
 
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(true);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -66,10 +66,10 @@ const _Login = () => {
           control={control}
           rules={{
             required: true,
-            // pattern: {
-            //   value: /^\S+@\S+\.\S+$/, // Regex to allow only letters and spaces
-            //   message: 'Only letters are allowed',
-            // },
+            pattern: {
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+              message: 'Invalid email address',
+            },
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput

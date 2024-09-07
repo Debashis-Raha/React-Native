@@ -1,50 +1,46 @@
-import { StyleSheet, Text, View, TouchableOpacity} from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native';
 
-const Header = ({title, isBackOption}) => {
-const navigation = useNavigation();
+const Header = ({ title, isBackOption }) => {
+  const navigation = useNavigation();
 
   return (
-  <View style={styles.headerStyle}>
-    <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
-    {!isBackOption && (
-      <Icon name="arrow-back" size={25} color="white"  />
-    )}
-   
-    <Text style={styles.mainTxtStyle}>{title}</Text>
+    <View style={styles.headerStyle}>
+      <View style={styles.leftContainer}>
+        {!isBackOption && (
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Icon name="arrow-back" size={25} color="white" />
+          </TouchableOpacity>
+        )}
+      </View>
+      <Text style={styles.mainTxtStyle}>{title}</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('AddToCart')}>
+        <Icon name="cart" size={30} color="white" />
+      </TouchableOpacity>
     </View>
-    <TouchableOpacity onPress={()=>navigation.navigate('AddToCart')}>
-    <Icon name="cart" size={30} color="white"  />
-    </TouchableOpacity>
-  </View>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
 
 const styles = StyleSheet.create({
-  headerStyle:{
-    justifyContent:'space-between',
-    flexDirection:'row',
-    padding:20,
-    backgroundColor:'#FF2E63',
-   alignItems: 'center'
-
+  headerStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 20,
+    backgroundColor: '#FF2E63',
   },
-  txtStyle:{
-    fontSize:20,
-    fontWeight:'400',
-   /// paddingTop:8,
-    color:'#EAEAEA',
-    marginRight: 4
-
+  leftContainer: {
+    width: 50, // Adjust this width as needed
+    alignItems: 'flex-start',
   },
-  mainTxtStyle:{
-    fontSize:20,
-    color:'#EAEAEA',
-    alignSelf: 'center',
-    marginLeft: 5
+  mainTxtStyle: {
+    fontSize: 20,
+    color: '#EAEAEA',
+    textAlign: 'center',
+    flex: 1,
   },
-})
+});

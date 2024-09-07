@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     borderColor: '#FF2E63',
     textAlign: 'left',
     borderRadius: 5,
-    color:'red',
+    color:'#FF2E63',
   },
   dropdown: {
     marginVertical: 5,
