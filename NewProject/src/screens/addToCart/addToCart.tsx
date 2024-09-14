@@ -13,7 +13,7 @@ const AddToCart = () => {
 
   const navigation = useNavigation();
 
-  // Group items by id and calculate quantity
+
   const matchedItems = cartList.reduce((acc, id) => {
     const item = foodList.find(item => item.id === id);
     if (item) {
@@ -36,7 +36,7 @@ const AddToCart = () => {
   );
 
   const totalPrice = matchedItemsArray.reduce(
-    (total, item) => total + item.foodPrice * quantities[item.id],
+    (total, item) => Number(total) + Number(item.foodPrice) * Number(quantities[item.id]),
     0,
   );
 
