@@ -36,6 +36,7 @@ const AddItems = () => {
       foodPrice: data.FoodPrice,
       foodCategory: data.FoodCategory.value,
       image: data.image,
+      quanity:1,
     };
 
     dispatch(addFood(payload));
