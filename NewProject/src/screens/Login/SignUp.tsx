@@ -119,7 +119,7 @@ const SignUp = () => {
         {errors.phone && (
           <Text style={styles.error}>Phone number is required</Text>
         )}
-        <Text style={styles.labelStyle}>Password</Text>
+            <Text style={styles.labelStyle}>Password</Text>
         <Controller
           control={control}
           rules={{
@@ -131,18 +131,18 @@ const SignUp = () => {
                 onChangeText={onChange}
                 onBlur={onBlur}
                 value={value}
-                placeholder="12345678"
+                placeholder="Enter your password"
                 keyboardType="default"
                 secureTextEntry={showPassword}
-                // style={styles.inputStyle}
+                style={styles.inputStyles}
               />
-              <Ionicons
-                name={showPassword ? 'eye' : 'eye-off'}
-                size={24}
-                color="#aaa"
-                style={styles.icon}
-                onPress={toggleShowPassword}
-              />
+              <TouchableOpacity onPress={toggleShowPassword}>
+                <Ionicons
+                  name={showPassword ? 'eye-off' : 'eye'}
+                  size={20}
+                  color="gray"
+                />
+              </TouchableOpacity>
             </View>
           )}
           name="password"
@@ -156,7 +156,8 @@ const SignUp = () => {
           control={control}
           rules={{
             required: true,
-            validate: value => value === watch('password') || 'Password must match',
+            validate: value =>
+              value === watch('password') || 'Passwords do not match',
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <View style={styles.passwordInputContainer}>
@@ -164,25 +165,25 @@ const SignUp = () => {
                 onChangeText={onChange}
                 onBlur={onBlur}
                 value={value}
-                placeholder="12345678"
+                placeholder="Confirm your password"
                 keyboardType="default"
                 secureTextEntry={showPassword}
-                // style={styles.inputStyle}
+                style={styles.inputStyles}
               />
-              <Ionicons
-                name={showPassword ? 'eye' : 'eye-off'}
-                size={24}
-                color="#aaa"
-                style={styles.icon}
-                onPress={toggleShowPassword}
-              />
+              <TouchableOpacity onPress={toggleShowPassword}>
+                <Ionicons
+                  name={showPassword ? 'eye-off' : 'eye'}
+                  size={20}
+                  color="gray"
+                />
+              </TouchableOpacity>
             </View>
           )}
           name="confirmPassword"
           defaultValue=""
         />
         {errors.confirmPassword && (
-          <Text style={styles.error}>{errors.validate?.message}</Text>
+          <Text style={styles.error}>{errors.confirmPassword.message}</Text>
         )}
         <TouchableOpacity
           style={styles.button}
@@ -241,6 +242,15 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     borderWidth: 1,
     borderColor: '#FF2E63',
+    textAlign: 'left',
+    borderRadius: 5,
+    color: '#FF2E63',
+  },
+  inputStyles: {
+    fontSize: 15,
+    paddingLeft: 10,
+    // borderWidth: 1,
+    // borderColor: '#FF2E63',
     textAlign: 'left',
     borderRadius: 5,
     color: '#FF2E63',

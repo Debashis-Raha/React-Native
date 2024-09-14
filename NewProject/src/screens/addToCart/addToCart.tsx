@@ -1,7 +1,6 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import {StyleSheet, Text, TouchableOpacity, View, FlatList, ScrollView} from 'react-native';
+import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
-import {FlatList, ScrollView} from 'react-native-gesture-handler';
 import Header from '../../components/atom/Header';
 import {useNavigation} from '@react-navigation/native';
 import Address from '../CheckOut/Address';
@@ -12,49 +11,88 @@ const AddToCart = () => {
   console.log('cartList2====>', cartList);
   console.log('foodList2====>', foodList);
 
-  const totalPrice = foodList.reduce(
-    (total, element) => Number(total) + Number(element.foodPrice),
+  const navigation = useNavigation();
+
+  // Group items by id and calculate quantity
+  const matchedItems = cartList.reduce((acc, id) => {
+    const item = foodList.find(item => item.id === id);
+    if (item) {
+      if (acc[item.id]) {
+        acc[item.id].quantity += 1;
+      } else {
+        acc[item.id] = {...item, quantity: 1};
+      }
+    }
+    return acc;
+  }, {});
+
+  const matchedItemsArray = Object.values(matchedItems);
+
+  const [quantities, setQuantities] = useState(
+    matchedItemsArray.reduce((acc, item) => {
+      acc[item.id] = item.quantity;
+      return acc;
+    }, {})
+  );
+
+  const totalPrice = matchedItemsArray.reduce(
+    (total, item) => total + item.foodPrice * quantities[item.id],
     0,
   );
 
-  const navigation = useNavigation();
+  console.log('matchedList======>', matchedItemsArray);
 
-  const matchedItems = cartList
-    .map(id => foodList.find(item => item.id === id))
-    .filter(item => item !== undefined);
+  const incrementQuantity = id => {
+    setQuantities(prevQuantities => ({
+      ...prevQuantities,
+      [id]: prevQuantities[id] + 1,
+    }));
+  };
 
-  // const matchedItems = cartList
-  // .map(idObj => foodList.find(item => item.id === idObj.Index))
-  // .filter(item => item !== undefined);
+  const decrementQuantity = id => {
+    setQuantities(prevQuantities => ({
+      ...prevQuantities,
+      [id]: prevQuantities[id] > 1 ? prevQuantities[id] - 1 : 1,
+    }));
+  };
 
-  console.log('matchedList======>', matchedItems);
-
-  const render_Item = item => (
+  const render_Item = ({item}) => (
     <View>
       <View style={styles.RenderView}>
-        <Text style={styles.RenderText}>Food Name: {item.item.foodName}</Text>
-        <Text style={styles.RenderText}>
-          Food Price: ${item.item.foodPrice}
-        </Text>
+        <Text style={styles.RenderText}> {item.foodName}</Text>
+        <Text style={styles.RenderText}> ${item.foodPrice}</Text>
+        <View style={styles.counterContainer}>
+          <TouchableOpacity
+            style={styles.counterButton}
+            onPress={() => decrementQuantity(item.id)}>
+            <Text style={styles.counterText}>-</Text>
+          </TouchableOpacity>
+          <Text style={styles.counterText}>{quantities[item.id]}</Text>
+          <TouchableOpacity
+            style={styles.counterButton}
+            onPress={() => incrementQuantity(item.id)}>
+            <Text style={styles.counterText}>+</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
 
-  const footer = () => {
-    return (
-      <View style={styles.footContainer}>
-        <Text style={styles.footText}>This is footer</Text>
-      </View>
-    );
-  };
+  // const footer = () => {
+  //   return (
+  //     <View style={styles.footContainer}>
+  //       <Text style={styles.footText}>This is footer</Text>
+  //     </View>
+  //   );
+  // };
 
   return (
     <ScrollView contentContainerStyle={{flex: 1}}>
       <Header title="Cart" isBackOption={false} />
       <FlatList
-        data={matchedItems}
+        data={matchedItemsArray}
         renderItem={render_Item}
-        keyExtractor={item => item.foodName}
+        keyExtractor={item => item.id.toString()}
         // ListFooterComponent={footer}
       />
       <View>
@@ -75,55 +113,51 @@ export default AddToCart;
 
 const styles = StyleSheet.create({
   RenderView: {
-    flex: 1,
-    width: 400,
-    borderWidth: 2,
-    borderColor: '#FF2E63',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    marginTop: 10,
-    marginHorizontal: 10,
     padding: 10,
-    borderRadius: 10,
-    backgroundColor: '#EAEAEA',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    
   },
   RenderText: {
-    justifyContent: 'center',
-    fontSize: 20,
-    fontWeight: '300',
-    color: '#252A34',
+    fontSize: 16,
+    fontWeight:'400'
+  },
+  counterContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  counterButton: {
+    backgroundColor: '#ddd',
+    padding: 5,
+    margin: 5,
+    borderRadius: 5,
+  },
+  counterText: {
+    fontSize: 16,
+    marginHorizontal: 10,
   },
   footContainer: {
-    position: 'relative',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 50,
-    // backgroundColor: 'black', // Customize as needed
-    justifyContent: 'center',
+    padding: 10,
     alignItems: 'center',
   },
-  footText: {},
-  payButton: {
-    backgroundColor: '#08D9D6',
-    borderRadius: 20,
-    height: 50,
-    width: 250,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: 80,
-    marginBottom: 10,
-  },
-  payText: {
-    fontSize: 20,
-    color: '#EAEAEA',
-    padding: 5,
-    fontWeight: '500',
+  footText: {
+    fontSize: 16,
   },
   totalText: {
-    fontSize: 20,
-    alignSelf: 'center',
-    color: '#252A34',
-    marginBottom: 20,
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginVertical: 10,
+  },
+  payButton: {
+    backgroundColor: '#08D9D6',
+    padding: 10,
+    margin: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  payText: {
+    color: '#fff',
+    fontSize: 16,
   },
 });

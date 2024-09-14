@@ -33,12 +33,14 @@ const Home = () => {
        
         <Image source={{uri: item.item.image}} style={styles.image} />
         <View style={styles.subCard}>
-          <Text style={styles.Txt}>Food Name: {item.item.foodName} </Text>
+          <View>
+          <Text style={styles.Txt}>{item.item.foodName} </Text>
 
-          <Text style={styles.Txt}>
-            Food Category: {item.item.foodCategory}{' '}
+          <Text style={styles.txt}>
+           {item.item.foodCategory}{' '}
           </Text>
-          <Text style={styles.Txt}>Food Price: ${item.item.foodPrice} </Text>
+          <Text style={styles.text}>${item.item.foodPrice} </Text>
+          </View>
           <View style={styles.subView}>
           <TouchableOpacity onPress={() => AddtoCart(item.item.id)} style={styles.AddCartButton}>
             <Text style={styles.AddCartText}>Add to Cart</Text>
@@ -74,32 +76,51 @@ const styles = StyleSheet.create({
   card: {
     flex: 1,
     flexDirection: 'row',
+    // justifyContent:'space-between',
     alignItems: 'center',
     padding: 10,
     borderWidth: 2,
     borderColor: '#FF2E63',
     marginHorizontal: 10,
-    marginBottom: 10,
-    marginTop:5,
+    // marginBottom: 10,
+    marginTop:10,
     borderRadius: 5,
     backgroundColor:'#EAEAEA'
   },
   subCard: {
     marginLeft: 1,
+    flexDirection:'row',
+    justifyContent:'space-evenly'
+  },
+  subView:{
+    padding:20
   },
   Txt: {
     fontSize: 20,
-    fontWeight: '300',
+    fontWeight: '600',
     color: '#252A34',
     marginBottom: 5,
   },
+  txt: {
+    fontSize: 20,
+    fontWeight: '400',
+    color: '#252A34',
+    marginBottom: 5,
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: '400',
+    color: '#252A34',
+    marginBottom: 5,
+  },
+  
   flatStyle:{
     flex:1,
     backgroundColor:'#EAEAEA'
   },
   AddCartButton:{
     backgroundColor:'#08D9D6',
-    height:50,
+    height:40,
     width:150,
     alignSelf:'center',
     borderRadius:50,
@@ -112,7 +133,7 @@ const styles = StyleSheet.create({
     alignSelf:'center',
     justifyContent:'center',
     padding:5,
-    marginTop:5,
+    color:'#EAEAEA'
    
   },
 });
