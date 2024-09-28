@@ -17,6 +17,7 @@ import {
   isLogginSuccess,
 } from '../Store/UserSlice';
 
+import { ImageBackground } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 const _Login = () => {
@@ -59,6 +60,10 @@ const _Login = () => {
 
   return (
     <View style={styles.container}>
+    <ImageBackground
+    source={require('../../../assests/bgg.png')}
+    style={styles.background}>
+    
       <View style={styles.subContainer}>
         <Text style={styles.headerLabel}>Login</Text>
         <Text style={styles.labelStyle}>Enter Your Email Id:</Text>
@@ -83,7 +88,7 @@ const _Login = () => {
           name="email"
           defaultValue=""
         />
-        {errors.email && <Text>Email Address is required</Text>}
+        {errors.email && <Text style={styles.errorStyle}>Email Address is required</Text>}
         <Text style={styles.labelStyle}>Password</Text>
         <Controller
           control={control}
@@ -112,7 +117,7 @@ const _Login = () => {
           name="password"
           defaultValue=""
         />
-        {errors.password && <Text>Password is required</Text>}
+        {errors.password && <Text style={styles.errorStyle}>Password is required</Text>}
         <TouchableOpacity
           style={styles.button}
           onPress={handleSubmit(onSubmit)}>
@@ -131,6 +136,8 @@ const _Login = () => {
           </View>
         </TouchableOpacity>
       </View>
+   
+    </ImageBackground>
     </View>
   );
 };
@@ -142,13 +149,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
 
-    padding: 10,
-    backgroundColor: '#EAEAEA',
+    // padding: 10,
+    backgroundColor: '#FFF5E1',
   },
   subContainer: {
-    paddingHorizontal: 5,
-
+    paddingHorizontal: 15,
+    // padding:10,
     marginTop: 50,
+    backgroundColor:'#EAEAEA',
+    borderRadius:20,
+    marginHorizontal:10,
   },
 
   headerLabel: {
@@ -172,7 +182,7 @@ const styles = StyleSheet.create({
     borderColor: '#FF2E63',
     textAlign: 'left',
     borderRadius: 5,
-    color: 'red',
+    color: '#252A34',
   },
   button: {
     backgroundColor: '#FF2E63',
@@ -193,7 +203,7 @@ const styles = StyleSheet.create({
 
   signUp: {
     fontSize: 15,
-    color: 'blue',
+    color: '#C80036',
   },
   signUpKey: {
     marginLeft: 90,
@@ -208,7 +218,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   signUpLink: {
-    color: 'blue',
+    color: '#C80036',
     textDecorationLine: 'underline',
+  },
+  errorStyle:{
+color:'red'
+  },
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
   },
 });
